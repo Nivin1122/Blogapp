@@ -96,7 +96,7 @@
               <h2 class="blog-post-title">{{ blog.title }}</h2>
               <p class="blog-post-excerpt">{{ blog.content|truncatewords:30 }}</p>
               <div class="blog-post-meta">
-                <span><i class="far fa-clock"></i> {{ blog.created_at|date:"F j, Y" }}</span>
+                
                 <a href="{% url 'add_comment' blog.id%}" class="btn btn-comment">
                   <i class="far fa-comment"></i> Add Comment
                 </a>
