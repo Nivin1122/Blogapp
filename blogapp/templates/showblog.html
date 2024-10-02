@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Professional Blog</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .blog-header {
+      background-color: #fff;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .blog-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2c3e50;
+    }
+    .blog-post {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease;
+    }
+    .blog-post:hover {
+      transform: translateY(-5px);
+    }
+    .blog-post-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+    .blog-post-content {
+      padding: 1.5rem;
+    }
+    .blog-post-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+    }
+    .blog-post-excerpt {
+      color: #666;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .blog-post-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    .btn-comment {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .btn-comment:hover {
+      background-color: #2980b9;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header class="blog-header">
+    <div class="container">
+      <h1 class="blog-title text-center">Blog</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      {% for blog in allblog %}
+        <div class="col-md-6 col-lg-4">
+          <article class="blog-post">
+            {% if blog.images %}
+              <img src="{{ blog.images.url }}" alt="{{ blog.title }}" class="blog-post-image">
+            {% else %}
+              <img src="/api/placeholder/400/200" alt="placeholder" class="blog-post-image">
+            {% endif %}
+            <div class="blog-post-content">
+              <h2 class="blog-post-title">{{ blog.title }}</h2>
+              <p class="blog-post-excerpt">{{ blog.content|truncatewords:30 }}</p>
+              <div class="blog-post-meta">
+                <span><i class="far fa-clock"></i> {{ blog.created_at|date:"F j, Y" }}</span>
+                <a href="{% url 'add_comment' blog.id%}" class="btn btn-comment">
+                  <i class="far fa-comment"></i> Add Comment
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

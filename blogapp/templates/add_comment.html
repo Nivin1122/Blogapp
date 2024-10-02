@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Comments</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .comments-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    .comment-form {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .form-control:focus {
+      border-color: #3498db;
+      box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    }
+    .btn-submit {
+      background-color: #3498db;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .btn-submit:hover {
+      background-color: #2980b9;
+    }
+    .comments-list {
+      margin-top: 2rem;
+    }
+    .comment {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .comment-author {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .comment-date {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    .comment-content {
+      color: #444;
+      line-height: 1.6;
+    }
+    .section-title {
+      color: #2c3e50;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="comments-section">
+    <h2 class="section-title">Comments</h2>
+    
+    <!-- Comment Form -->
+    <div class="comment-form">
+      <h3 class="mb-3">Leave a Comment</h3>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+          <label for="comment" class="form-label">Your Comment</label>
+          <textarea class="form-control" id="comment" name="comment" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-submit">Post Comment</button>
+      </form>
+    </div>
+
+    <!-- Existing Comments -->
+    <div class="comments-list">
+      {% if all_comments %}
+        {% for comment in all_comments %}
+          <div class="comment">
+            <div class="comment-header " >
+              <span class="comment-author" style="color: rgb(23, 48, 55);"><i class="fa fa-user" style="font-size:24px"></i>
+                {{ comment.name }}</span>
+              
+            </div>
+            <div class="comment-content">
+              {{ comment.comm }}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="text-center text-muted">
+          <p>No comments yet. Be the first to comment!</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -14,7 +14,8 @@ class Blog(models.Model):
 class Comment(models.Model):
     blog = models.ForeignKey(Blog,on_delete=models.CASCADE,related_name="comments")
     name = models.CharField(max_length=100)
-    comm = models.TextField()
+    comm = models.TextField(null=True)
+    email = models.EmailField(null=True)
 
     def __str__(self):
         return self.name
